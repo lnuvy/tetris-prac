@@ -1,0 +1,33 @@
+{
+  "presets": [
+    [
+      "next/babel",
+      {
+        "preset-react": {
+          "runtime": "automatic",
+          "importSource": "@emotion/react"
+        }
+      }
+    ]
+  ],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": [
+          "./src"
+        ],
+        "alias": {
+          "@hooks": "./src/hooks",
+          "@components": "./src/components",
+          "@elements": "./src/elements",
+          "@typing": "./src/typing",
+          "@queries": "./src/queries"
+        }
+      }
+    ],
+    [
+      "@emotion/babel-plugin"
+    ]
+  ]
+}
