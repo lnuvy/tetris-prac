@@ -10,6 +10,8 @@ const styles = css`
       'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji',
       'Segoe UI Symbol', sans-serif;
     scroll-behavior: smooth;
+
+    background: #dfdfbd;
   }
 
   a {

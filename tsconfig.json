@@ -16,11 +16,14 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
+      "@pages/*": ["pages/*"],
+      "@styles/*": ["styles/*"],
       "@hooks/*": ["src/hooks/*"],
       "@components/*": ["src/components/*"],
       "@elements/*": ["src/elements/*"],
       "@typing/*": ["src/typing/*"],
       "@queries/*": ["src/queries/*"],
+      "@constant/*": ["src/constant/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

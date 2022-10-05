@@ -14,20 +14,19 @@
     [
       "module-resolver",
       {
-        "root": [
-          "./src"
-        ],
+        "root": ["./src"],
         "alias": {
+          "@pages": "../pages",
+          "@styles": "../styles",
           "@hooks": "./src/hooks",
           "@components": "./src/components",
           "@elements": "./src/elements",
           "@typing": "./src/typing",
-          "@queries": "./src/queries"
+          "@queries": "./src/queries",
+          "@constant": "./src/constant"
         }
       }
     ],
-    [
-      "@emotion/babel-plugin"
-    ]
+    ["@emotion/babel-plugin"]
   ]
 }
