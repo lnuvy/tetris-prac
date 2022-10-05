@@ -1,5 +1,5 @@
 import { STAGE_HEIGHT, STAGE_WIDTH, TETROMINOS } from '@constant/Block'
-import styled from '@emotion/react'
+import styled from '@emotion/styled'
 import { CellProps, DisplayProps } from '@typing/FE'
 
 export const StyledCell = styled.div<CellProps>`

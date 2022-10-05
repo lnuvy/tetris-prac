@@ -1,5 +1,5 @@
 import { TETROMINOS } from '@constant/Block'
-import { StyledCell } from '@styles/Common.styles'
+import { StyledCell } from '@styles/Common'
 import { CellProps } from '@typing/FE'
 import React from 'react'
 

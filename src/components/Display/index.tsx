@@ -1,4 +1,4 @@
-import { StyledDisplay } from '@styles/Common.styles'
+import { StyledDisplay } from '@styles/Common'
 import { DisplayProps } from '@typing/FE'
 import React from 'react'
 
