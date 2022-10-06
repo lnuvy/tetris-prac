@@ -3,7 +3,11 @@ import { StyledCell } from '@styles/Common'
 import { CellProps } from '@typing/FE'
 import React from 'react'
 
-const Cell: React.FC<CellProps> = ({ type }) => {
+interface Props {
+  type: keyof typeof TETROMINOS
+}
+
+const Cell: React.FC<Props> = ({ type }) => {
   return <StyledCell type={type} color={TETROMINOS[type].color} />
 }
 

@@ -24,7 +24,8 @@
       "@elements/*": ["src/elements/*"],
       "@typing/*": ["src/typing/*"],
       "@queries/*": ["src/queries/*"],
-      "@constant/*": ["src/constant/*"]
+      "@constant/*": ["src/constant/*"],
+      "@function/*": ["src/function/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

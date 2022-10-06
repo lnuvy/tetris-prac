@@ -7,7 +7,7 @@ interface Props extends DisplayProps {
 }
 
 const Display: React.FC<Props> = ({ gameOver, text }) => {
-  return <StyledDisplay>Display</StyledDisplay>
+  return <StyledDisplay>{text}</StyledDisplay>
 }
 
 export default Display

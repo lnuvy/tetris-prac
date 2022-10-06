@@ -14,16 +14,17 @@
     [
       "module-resolver",
       {
-        "root": ["./src"],
+        "root": ["."],
         "alias": {
-          "@pages": "../pages",
-          "@styles": "../styles",
+          "@pages": "./pages",
+          "@styles": "./styles",
           "@hooks": "./src/hooks",
           "@components": "./src/components",
           "@elements": "./src/elements",
           "@typing": "./src/typing",
           "@queries": "./src/queries",
-          "@constant": "./src/constant"
+          "@constant": "./src/constant",
+          "@function": "./src/function"
         }
       }
     ],

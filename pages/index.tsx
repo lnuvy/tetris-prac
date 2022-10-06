@@ -3,8 +3,15 @@ import Head from 'next/head'
 import styled from '@emotion/styled'
 import { useState } from 'react'
 import Image from 'next/image'
+import Display from '@components/Display'
+import StartButton from '@components/StartButton'
+import Stage from '@components/Stage'
+import { createStage } from 'src/function'
 
 const Home: NextPage = () => {
+  const [dropTime, setDropTime] = useState<null | number>(null)
+  const [gameOver, setGameOver] = useState(true)
+
   return (
     <div>
       <Head>
@@ -14,7 +21,24 @@ const Home: NextPage = () => {
       </Head>
 
       <StyledTetrisWrapper role="button" tabIndex={0}>
-        <StyledTetris>Start Here!</StyledTetris>
+        <StyledTetris>
+          <div className="display">
+            {gameOver ? (
+              <>
+                <Display gameOver={gameOver} text="Game Over..." />
+                <StartButton callback={() => null} />
+              </>
+            ) : (
+              <>
+                <Display text={`Score: `} />
+                <Display text={`Rows: `} />
+                <Display text={`Level: `} />
+              </>
+            )}
+          </div>
+
+          <Stage stage={createStage()} />
+        </StyledTetris>
 
         <Copyright>
           <a
@@ -26,7 +50,7 @@ const Home: NextPage = () => {
           &nbsp; 출처 Freepik
         </Copyright>
 
-        <Image
+        {/* <Image
           src="/background.jpg"
           layout="fill"
           objectFit="cover"
@@ -34,7 +58,7 @@ const Home: NextPage = () => {
           alt="background"
           priority
           style={{ zIndex: '0' }}
-        />
+        /> */}
       </StyledTetrisWrapper>
     </div>
   )
