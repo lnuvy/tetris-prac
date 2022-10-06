@@ -1,16 +1,81 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import styled from '@emotion/styled'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import Image from 'next/image'
 import Display from '@components/Display'
 import StartButton from '@components/StartButton'
 import Stage from '@components/Stage'
 import { createStage } from 'src/utils'
+import { usePlayer } from '@hooks/usePlayer'
+import { useStage } from '@hooks/useStage'
+import { useInterval } from '@hooks/useInterval'
 
 const Home: NextPage = () => {
   const [dropTime, setDropTime] = useState<null | number>(null)
   const [gameOver, setGameOver] = useState(true)
+  const gameArea = useRef<HTMLDivElement>(null)
+
+  const { player, updatePlayerPos, resetPlayer } = usePlayer()
+  const { stage, setStage } = useStage(player, resetPlayer)
+
+  const movePlayer = (dir: number) => {
+    updatePlayerPos({ x: dir, y: 0, collided: false })
+  }
+
+  const move = ({
+    keyCode,
+    repeat,
+  }: {
+    keyCode: number
+    repeat: boolean
+  }): void => {
+    // if(!gameOver)
+
+    if (repeat) return
+
+    switch (keyCode) {
+      case 37:
+        movePlayer(-1)
+        break
+      case 39:
+        movePlayer(1)
+        break
+
+      // down
+      case 40:
+        if (repeat) return
+        setDropTime(30)
+
+      // up
+      case 38:
+        // asdfadsf
+        break
+    }
+  }
+
+  const keyUp = ({ keyCode }: { keyCode: number }): void => {
+    if (keyCode === 40) {
+      setDropTime(1000)
+    }
+  }
+
+  const handleStartGame = (): void => {
+    if (gameArea.current) gameArea.current.focus()
+
+    setStage(createStage())
+    setDropTime(1000)
+    resetPlayer()
+    setGameOver(false)
+  }
+
+  const drop = (): void => {
+    updatePlayerPos({ x: 0, y: 1, collided: false })
+  }
+
+  useInterval(() => {
+    drop()
+  }, dropTime)
 
   return (
     <div>
@@ -20,13 +85,19 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <StyledTetrisWrapper role="button" tabIndex={0}>
+      <StyledTetrisWrapper
+        role="button"
+        tabIndex={0}
+        onKeyDown={move}
+        onKeyUp={keyUp}
+        ref={gameArea}
+      >
         <StyledTetris>
           <div className="display">
             {gameOver ? (
               <>
                 <Display gameOver={gameOver} text="Game Over..." />
-                <StartButton callback={() => null} />
+                <StartButton callback={handleStartGame} />
               </>
             ) : (
               <>
@@ -37,7 +108,7 @@ const Home: NextPage = () => {
             )}
           </div>
 
-          <Stage stage={createStage()} />
+          <Stage stage={stage} />
         </StyledTetris>
 
         <Copyright>
