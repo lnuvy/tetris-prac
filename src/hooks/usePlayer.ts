@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react'
 import { STAGE_WIDTH } from '@constant/Block'
 
 import { Player } from '@typing/FE'
+import { randomTetromino } from 'src/utils'
 
 export const usePlayer = () => {
   const [player, setPlayer] = useState({} as Player)
