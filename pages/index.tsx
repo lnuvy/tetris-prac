@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Display from '@components/Display'
 import StartButton from '@components/StartButton'
 import Stage from '@components/Stage'
-import { createStage } from 'src/utils'
+import { createStage, isColliding } from 'src/utils'
 import { usePlayer } from '@hooks/usePlayer'
 import { useStage } from '@hooks/useStage'
 import { useInterval } from '@hooks/useInterval'
@@ -20,35 +20,34 @@ const Home: NextPage = () => {
   const { stage, setStage } = useStage(player, resetPlayer)
 
   const movePlayer = (dir: number) => {
-    updatePlayerPos({ x: dir, y: 0, collided: false })
+    if (!isColliding(player, stage, { x: dir, y: 0 })) {
+      updatePlayerPos({ x: dir, y: 0, collided: false })
+    }
   }
 
-  const move = ({
-    keyCode,
-    repeat,
-  }: {
-    keyCode: number
-    repeat: boolean
-  }): void => {
+  console.log(player.pos)
+
+  const move = ({ key, repeat }: { key: string; repeat: boolean }): void => {
     // if(!gameOver)
 
     if (repeat) return
 
-    switch (keyCode) {
-      case 37:
+    switch (key) {
+      case 'ArrowLeft':
         movePlayer(-1)
         break
-      case 39:
+      case 'ArrowRight':
         movePlayer(1)
         break
 
       // down
-      case 40:
+      case 'ArrowDown':
         if (repeat) return
         setDropTime(30)
+        break
 
       // up
-      case 38:
+      case 'ArrowUp':
         // asdfadsf
         break
     }
@@ -70,7 +69,16 @@ const Home: NextPage = () => {
   }
 
   const drop = (): void => {
-    updatePlayerPos({ x: 0, y: 1, collided: false })
+    if (!isColliding(player, stage, { x: 0, y: 1 })) {
+      updatePlayerPos({ x: 0, y: 1, collided: false })
+    } else {
+      if (player.pos.y < 1) {
+        console.log('hi')
+        setGameOver(true)
+        setDropTime(null)
+      }
+      updatePlayerPos({ x: 0, y: 0, collided: true })
+    }
   }
 
   useInterval(() => {
