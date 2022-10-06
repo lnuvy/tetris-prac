@@ -1,1 +1,1 @@
-import { createStage } from 'src/function'
+import React from 'react'

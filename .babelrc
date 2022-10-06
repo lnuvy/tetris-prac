@@ -14,7 +14,7 @@
     [
       "module-resolver",
       {
-        "root": ["."],
+        "root": ["./src"],
         "alias": {
           "@pages": "./pages",
           "@styles": "./styles",
@@ -23,8 +23,10 @@
           "@elements": "./src/elements",
           "@typing": "./src/typing",
           "@queries": "./src/queries",
-          "@constant": "./src/constant",
-          "@function": "./src/function"
+          "@constant": "./src/constant", // 여기까지 먹힙니다!
+
+          "@utils": "./src/utils", // 아래 두개는 적용이 안되네요..
+          "@testFolder": "./src/testFoler"
         }
       }
     ],

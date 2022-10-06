@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Display from '@components/Display'
 import StartButton from '@components/StartButton'
 import Stage from '@components/Stage'
-import { createStage } from 'src/function'
+import { createStage } from 'src/utils'
 
 const Home: NextPage = () => {
   const [dropTime, setDropTime] = useState<null | number>(null)

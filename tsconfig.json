@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["@emotion/react/types/css-prop"],
+    // "types": ["@emotion/react/types/css-prop"],
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -25,7 +25,9 @@
       "@typing/*": ["src/typing/*"],
       "@queries/*": ["src/queries/*"],
       "@constant/*": ["src/constant/*"],
-      "@function/*": ["src/function/*"]
+
+      "@utils/*": ["src/utils/*"], // 마찬가지로 여기 두개가 먹히지 않습니다
+      "@testFolder/*": ["src/testFolder/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

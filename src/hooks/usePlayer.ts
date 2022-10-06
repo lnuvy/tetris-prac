@@ -1,10 +1,10 @@
-import { STAGE_WIDTH } from '@constant/Block'
-import { PLAYER } from '@typing/FE'
 import { useCallback, useState } from 'react'
-import { randomTetromino } from 'src/function'
+import { STAGE_WIDTH } from '@constant/Block'
+
+import { Player } from '@typing/FE'
 
 export const usePlayer = () => {
-  const [player, setPlayer] = useState({} as PLAYER)
+  const [player, setPlayer] = useState({} as Player)
 
   const updatePlayerPos = ({
     x,
