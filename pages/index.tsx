@@ -2,7 +2,6 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import styled from '@emotion/styled'
 import { useRef, useState } from 'react'
-import Image from 'next/image'
 import Display from '@components/Display'
 import StartButton from '@components/StartButton'
 import Stage from '@components/Stage'
@@ -24,8 +23,6 @@ const Home: NextPage = () => {
       updatePlayerPos({ x: dir, y: 0, collided: false })
     }
   }
-
-  console.log(player.pos)
 
   const move = ({ key, repeat }: { key: string; repeat: boolean }): void => {
     // if(!gameOver)
