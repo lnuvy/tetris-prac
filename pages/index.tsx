@@ -16,7 +16,7 @@ const Home: NextPage = () => {
   const [gameOver, setGameOver] = useState(true)
   const gameArea = useRef<HTMLDivElement>(null)
 
-  const { player, updatePlayerPos, resetPlayer } = usePlayer()
+  const { player, updatePlayerPos, resetPlayer, playerRotate } = usePlayer()
   const { stage, setStage } = useStage(player, resetPlayer)
 
   const movePlayer = (dir: number) => {
@@ -48,7 +48,8 @@ const Home: NextPage = () => {
 
       // up
       case 'ArrowUp':
-        // asdfadsf
+        playerRotate(stage)
+
         break
     }
   }
