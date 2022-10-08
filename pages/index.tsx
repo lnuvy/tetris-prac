@@ -9,6 +9,7 @@ import { createStage, isColliding } from 'src/utils'
 import { usePlayer } from '@hooks/usePlayer'
 import { useStage } from '@hooks/useStage'
 import { useInterval } from '@hooks/useInterval'
+import { useGameStatus } from '@hooks/useGameStatus'
 
 const Home: NextPage = () => {
   const [dropTime, setDropTime] = useState<null | number>(null)
@@ -16,7 +17,9 @@ const Home: NextPage = () => {
   const gameArea = useRef<HTMLDivElement>(null)
 
   const { player, updatePlayerPos, resetPlayer, playerRotate } = usePlayer()
-  const { stage, setStage } = useStage(player, resetPlayer)
+  const { stage, setStage, rowsCleard } = useStage(player, resetPlayer)
+  const { score, setScore, rows, setRows, level, setLevel } =
+    useGameStatus(rowsCleard)
 
   const movePlayer = (dir: number) => {
     if (!isColliding(player, stage, { x: dir, y: 0 })) {
@@ -33,17 +36,16 @@ const Home: NextPage = () => {
       case 'ArrowLeft':
         movePlayer(-1)
         break
+
       case 'ArrowRight':
         movePlayer(1)
         break
 
-      // down
       case 'ArrowDown':
         if (repeat) return
         setDropTime(30)
         break
 
-      // up
       case 'ArrowUp':
         playerRotate(stage)
 
@@ -52,8 +54,12 @@ const Home: NextPage = () => {
   }
 
   const keyUp = ({ keyCode }: { keyCode: number }): void => {
+    // down
     if (keyCode === 40) {
       setDropTime(1000)
+      // up
+    } else if (keyCode === 38) {
+      // 없음
     }
   }
 
@@ -63,10 +69,19 @@ const Home: NextPage = () => {
     setStage(createStage())
     setDropTime(1000)
     resetPlayer()
+    setScore(0)
+    setRows(0)
+    setLevel(1)
     setGameOver(false)
   }
 
   const drop = (): void => {
+    // 10줄 깨면 1레벨업
+    if (rows > level * 10) {
+      setLevel((prev) => prev + 1)
+      setDropTime(1000 / level + 200)
+    }
+
     if (!isColliding(player, stage, { x: 0, y: 1 })) {
       updatePlayerPos({ x: 0, y: 1, collided: false })
     } else {
@@ -107,9 +122,9 @@ const Home: NextPage = () => {
               </>
             ) : (
               <>
-                <Display text={`Score: `} />
-                <Display text={`Rows: `} />
-                <Display text={`Level: `} />
+                <Display text={`Score: ${score}`} />
+                <Display text={`Rows: ${rows}`} />
+                <Display text={`Level: ${level}`} />
               </>
             )}
           </div>
