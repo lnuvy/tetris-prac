@@ -1,9 +1,10 @@
 import { useCallback, useState } from 'react'
-import { STAGE_WIDTH } from '@constant/Block'
+import { STAGE_HEIGHT, STAGE_WIDTH } from '@constant/Block'
 
 import { Player } from '@typing/FE'
 import { isColliding, randomTetromino } from 'src/utils'
 import { STAGE } from './useStage'
+import { dir } from 'console'
 
 export const usePlayer = () => {
   const [player, setPlayer] = useState({} as Player)
@@ -57,5 +58,23 @@ export const usePlayer = () => {
     })
   }, [])
 
-  return { player, updatePlayerPos, resetPlayer, playerRotate }
+  const pressSpace = (stage: STAGE, dir: number) => {
+    console.log(stage, dir)
+    const answer = isColliding(player, stage, { x: dir, y: STAGE_HEIGHT - 1 })
+
+    console.log(STAGE_HEIGHT)
+    console.log(answer)
+
+    if (answer) {
+      setPlayer((prev) => ({
+        pos: prev.pos,
+        tetromino: prev.tetromino,
+        collided: true,
+      }))
+    }
+    // console.log('!!!!!!!!!!', answer)
+    // console.log(answer)
+  }
+
+  return { player, updatePlayerPos, resetPlayer, playerRotate, pressSpace }
 }

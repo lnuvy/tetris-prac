@@ -10,13 +10,15 @@ import { usePlayer } from '@hooks/usePlayer'
 import { useStage } from '@hooks/useStage'
 import { useInterval } from '@hooks/useInterval'
 import { useGameStatus } from '@hooks/useGameStatus'
+import { STAGE_HEIGHT } from '@constant/Block'
 
 const Home: NextPage = () => {
   const [dropTime, setDropTime] = useState<null | number>(null)
   const [gameOver, setGameOver] = useState(true)
   const gameArea = useRef<HTMLDivElement>(null)
 
-  const { player, updatePlayerPos, resetPlayer, playerRotate } = usePlayer()
+  const { player, updatePlayerPos, resetPlayer, playerRotate, pressSpace } =
+    usePlayer()
   const { stage, setStage, rowsCleard } = useStage(player, resetPlayer)
   const { score, setScore, rows, setRows, level, setLevel } =
     useGameStatus(rowsCleard)
@@ -24,6 +26,12 @@ const Home: NextPage = () => {
   const movePlayer = (dir: number) => {
     if (!isColliding(player, stage, { x: dir, y: 0 })) {
       updatePlayerPos({ x: dir, y: 0, collided: false })
+    }
+  }
+
+  const pressSpaceKey = (dir: number) => {
+    if (!isColliding(player, stage, { x: dir, y: STAGE_HEIGHT - 1 })) {
+      // updatePlayerPos()
     }
   }
 
@@ -50,6 +58,11 @@ const Home: NextPage = () => {
         playerRotate(stage)
 
         break
+
+      case ' ':
+        if (repeat) return
+        pressSpace(stage, player.pos.x)
+        break
     }
   }
 
@@ -60,6 +73,9 @@ const Home: NextPage = () => {
       // up
     } else if (keyCode === 38) {
       // 없음
+    }
+    if (keyCode === 50) {
+      setDropTime(1000)
     }
   }
 
@@ -86,7 +102,6 @@ const Home: NextPage = () => {
       updatePlayerPos({ x: 0, y: 1, collided: false })
     } else {
       if (player.pos.y < 1) {
-        console.log('hi')
         setGameOver(true)
         setDropTime(null)
       }
