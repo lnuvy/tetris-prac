@@ -3,12 +3,12 @@ import { useEffect, useRef } from 'react'
 export function useInterval(callback: () => void, delay: number | null) {
   const savedCallback = useRef<null | (() => void)>(null)
 
-  // Remember the latest callback.
+  // useRef를 이용해서 함수를 props 로 넘겨 주입하는 방식
   useEffect(() => {
     savedCallback.current = callback
   }, [callback])
 
-  // Set up the interval.
+  // setInterval 함수 사용법
   useEffect(() => {
     function tick(): void {
       if (savedCallback.current) savedCallback.current()
