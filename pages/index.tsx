@@ -32,6 +32,7 @@ const Home: NextPage = () => {
   const pressSpaceKey = (dir: number) => {
     if (!isColliding(player, stage, { x: dir, y: STAGE_HEIGHT - 1 })) {
       // updatePlayerPos()
+      // log
     }
   }
 
