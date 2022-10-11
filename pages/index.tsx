@@ -33,6 +33,7 @@ const Home: NextPage = () => {
     if (!isColliding(player, stage, { x: dir, y: STAGE_HEIGHT - 1 })) {
       // updatePlayerPos()
       // log
+      // log2
     }
   }
 
