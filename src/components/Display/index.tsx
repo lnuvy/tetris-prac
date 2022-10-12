@@ -2,6 +2,11 @@ import { StyledDisplay } from '@styles/Common'
 import { DisplayProps } from '@typing/FE'
 import React from 'react'
 
+/**  DisplayProps {
+  gameOver?: boolean
+}
+
+*/
 interface Props extends DisplayProps {
   text: string
 }
